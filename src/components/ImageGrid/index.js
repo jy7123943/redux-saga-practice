@@ -1,10 +1,13 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Loader from '../Loader';
 import ErrorView from '../ErrorView';
-
+import { unsplashSelector } from '../../containers/ImageGrid/slice';
 import './styles.css';
 
-const ImageGrid = ({ isLoading, images, error }) => {
+const ImageGrid = () => {
+  const { isLoading, images, error } = useSelector(unsplashSelector.all);
+
   if (isLoading) {
     return <Loader />;
   }

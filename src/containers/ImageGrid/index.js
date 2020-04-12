@@ -1,24 +1,18 @@
 import React, { useEffect } from 'react';
 import ImageGrid from '../../components/ImageGrid';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { loadImages } from '../../actions';
+import { unsplashAction } from './slice';
 
 const ImageGridContainer = () => {
   const dispatch = useDispatch();
-  const { isLoading, images, error } = useSelector(state => state);
+  const { load } = unsplashAction;
 
   useEffect(() => {
-    dispatch(loadImages());
+    dispatch(load());
   }, []);
 
-  return (
-    <ImageGrid
-      isLoading={isLoading}
-      images={images}
-      error={error}
-    />
-  )
+  return <ImageGrid />;
 };
 
 export default ImageGridContainer;
