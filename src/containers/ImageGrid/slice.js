@@ -24,3 +24,20 @@ const name = 'UNSPLASH';
 const slice = createSlice({
   name, initialState, reducers
 });
+
+const selectAllState = createSelector(
+  state => state.isLoading,
+  state => state.images,
+  state => state.error,
+  (isLoading, images, error) => {
+    return { isLoading, images, error };
+  }
+);
+
+export const unsplashSelector = {
+  all: state => selectAllState(state[UNSPLASH])
+};
+
+export const UNSPLASH = slice.name;
+export const unsplashReducer = slice.reducer;
+export const unsplashAction = slice.actions;
