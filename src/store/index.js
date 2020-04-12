@@ -3,8 +3,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 
 import { all } from 'redux-saga/effects';
-import { UNSPLASH, unsplashReducer } from '../containers/ImageGrid/slice';
-import { watchUnsplash } from '../containers/ImageGrid/saga';
+import { UNSPLASH, unsplashReducer } from '../features/ImageGrid/slice';
+import { watchUnsplash } from '../features/ImageGrid/saga';
 
 export const rootReducer = combineReducers({
   [UNSPLASH]: unsplashReducer,

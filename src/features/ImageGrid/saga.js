@@ -1,6 +1,6 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { getSplashImage } from '../../api';
-import { unsplashAction } from '../../containers/ImageGrid/slice';
+import { unsplashAction } from './slice';
 
 function* handleImageLoad() {
   const { loadSuccess, loadFail } = unsplashAction;

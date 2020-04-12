@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import createStore from './store';
 
 import Header from './components/Header';
-import ImageGrid from './containers/ImageGrid';
+import ImageGrid from './features/ImageGrid';
 
 const store = createStore();
 
