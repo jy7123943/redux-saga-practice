@@ -1,11 +1,11 @@
 import { IMAGES } from '../constants';
 
 const loadImages = () => ({
-  types: IMAGES.LOAD,
+  type: IMAGES.LOAD,
 });
 
 const setImages = (images) => ({
-  types: IMAGES.LOAD_SUCCESS,
+  type: IMAGES.LOAD_SUCCESS,
   images,
 });
 

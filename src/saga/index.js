@@ -1,22 +1,26 @@
-import { takeEvery, put } from 'redux-saga/effects';
+import { takeEvery, put, call } from 'redux-saga/effects';
+// take -> call: 여러 번 dispatch해도 한 번만 실행됨
 // takeEvery: watch action calls
 // put: let us dispatch actions
+import { IMAGES } from '../constants';
+import { getSplashImage } from '../api';
+import { setImages, setError } from '../actions';
 
 // worker saga
-function* workerSaga() {
-  console.log('Hey from worker');
-  console.log()
-  yield put({
-    type: 'ACTION_FROM_WORKER'
-  });
+function* handleImagesLoad() {
+  try {
+    const images = yield call(getSplashImage);
+
+    yield put(setImages(images));
+  } catch (err) {
+    yield put(setError(err));
+  }
 }
 
 // watcher saga
 function* rootSaga() {
-  console.log('saga run');
-  yield takeEvery('HELLO', workerSaga);
+  yield takeEvery(IMAGES.LOAD, handleImagesLoad);
 }
 
 // watcher saga -> actions -> worker saga
-
 export default rootSaga;
