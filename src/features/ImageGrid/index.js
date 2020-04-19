@@ -39,8 +39,8 @@ const ImageGrid = () => {
   }
 
   return (
-    <div className="content">
-      <section className="grid">
+    <div className='content'>
+      <section className='grid'>
         {images.map(image => (
           <div
             key={ image.id }
@@ -54,8 +54,11 @@ const ImageGrid = () => {
             />
         </div>
         ))}
-        <div ref={ setTarget }>
-          is Loading...
+        <div
+          ref={ setTarget }
+          className='last-item'
+        >
+          <Loader size='s' />
         </div>
       </section>
     </div>
