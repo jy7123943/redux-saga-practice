@@ -1,20 +1,29 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { getSplashImage } from '../../api';
-import { unsplashAction } from './slice';
+import { unsplashAction, unsplashSelector } from './slice';
 
 export function* handleImageLoad() {
   const { loadSuccess, loadFail } = unsplashAction;
-  try {
-    const images = yield call(getSplashImage);
 
-    yield put(loadSuccess(images));
+  try {
+    const page = yield select(unsplashSelector.page);
+    const prevImages = yield select(unsplashSelector.images);
+    const nextPage = page + 1;
+
+    const newImages = yield call(getSplashImage, nextPage);
+
+    yield put(loadSuccess({
+      images: prevImages.concat(newImages),
+      nextPage,
+    }));
   } catch (err) {
     yield put(loadFail(err));
   }
 }
 
 export function* watchUnsplash() {
-  const { load } = unsplashAction;
+  const { load, loadMore } = unsplashAction;
 
   yield takeLatest(load, handleImageLoad);
+  yield takeLatest(loadMore, handleImageLoad);
 }

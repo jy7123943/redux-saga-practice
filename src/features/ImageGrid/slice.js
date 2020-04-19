@@ -3,21 +3,26 @@ import { createSelector, createSlice } from '@reduxjs/toolkit';
 export const initialState = {
   isLoading: false,
   images: [],
-  error: null
+  error: null,
+  page: 0,
 };
 
 const reducers = {
   load: (state) => {
     state.isLoading = true;
   },
-  loadSuccess: (state, { payload: images }) => {
+  loadMore: (state) => {
+    return state;
+  },
+  loadSuccess: (state, { payload: { images, nextPage } }) => {
     state.isLoading = false;
     state.images = images;
+    state.page = nextPage;
   },
   loadFail: (state, { payload: error }) => {
     state.isLoading = false;
     state.error = error;
-  }
+  },
 }
 
 const name = 'UNSPLASH';
@@ -40,6 +45,11 @@ const selectError = createSelector(
   (error) => error,
 );
 
+const selectPage = createSelector(
+  state => state.page,
+  (page) => page,
+);
+
 const selectAllState = createSelector(
   selectLoadingState,
   selectImages,
@@ -53,7 +63,8 @@ export const unsplashSelector = {
   isLoading: state => selectLoadingState(state[UNSPLASH]),
   images: state => selectImages(state[UNSPLASH]),
   error: state => selectError(state[UNSPLASH]),
-  all: state => selectAllState(state[UNSPLASH])
+  all: state => selectAllState(state[UNSPLASH]),
+  page: state => selectPage(state[UNSPLASH]),
 };
 
 export const UNSPLASH = slice.name;
