@@ -2,7 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { getSplashImage } from '../../api';
 import { unsplashAction } from './slice';
 
-function* handleImageLoad() {
+export function* handleImageLoad() {
   const { loadSuccess, loadFail } = unsplashAction;
   try {
     const images = yield call(getSplashImage);
